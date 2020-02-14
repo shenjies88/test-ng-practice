@@ -1,7 +1,7 @@
 package com.application;
 
-import com.application.entity.DbTestEntity;
-import com.application.service.DbTestRepository;
+import com.application.entity.DatabaseTestEntity;
+import com.application.service.DatabaseTestService;
 import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,11 +17,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @since 2020/2/14-8:47 PM
  */
 @SpringBootTest
-@SpringBootApplication(scanBasePackageClasses = DbTestRepository.class)
-public class DbTest extends AbstractTransactionalTestNGSpringContextTests {
+@SpringBootApplication(scanBasePackageClasses = DatabaseTestService.class)
+public class DatabaseTest extends AbstractTransactionalTestNGSpringContextTests {
 
     @Autowired
-    private DbTestRepository dbTestRepository;
+    private DatabaseTestService databaseTestService;
 
     @Autowired
     private Flyway flyway;
@@ -29,9 +29,9 @@ public class DbTest extends AbstractTransactionalTestNGSpringContextTests {
     @Test
     public void testSave() {
 
-        DbTestEntity foo = new DbTestEntity();
+        DatabaseTestEntity foo = new DatabaseTestEntity();
         foo.setName("Bob");
-        dbTestRepository.save(foo);
+        databaseTestService.save(foo);
 
         assertEquals(countRowsInTable("FOO"), 1);
         countRowsInTableWhere("FOO", "name = 'Bob'");
@@ -42,11 +42,11 @@ public class DbTest extends AbstractTransactionalTestNGSpringContextTests {
 
         assertEquals(countRowsInTable("FOO"), 0);
 
-        DbTestEntity foo = new DbTestEntity();
+        DatabaseTestEntity foo = new DatabaseTestEntity();
         foo.setName("Bob");
-        dbTestRepository.save(foo);
+        databaseTestService.save(foo);
 
-        dbTestRepository.delete(foo.getName());
+        databaseTestService.delete(foo.getName());
         assertEquals(countRowsInTable("FOO"), 0);
 
     }

@@ -7,7 +7,7 @@ import lombok.Data;
  * @since 2020/2/14-8:34 PM
  */
 @Data
-public class DbTestEntity {
+public class DatabaseTestEntity {
 
     private String name;
 }

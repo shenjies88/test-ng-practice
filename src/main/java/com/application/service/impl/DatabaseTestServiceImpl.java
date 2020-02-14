@@ -1,22 +1,22 @@
 package com.application.service.impl;
 
-import com.application.entity.DbTestEntity;
-import com.application.service.DbTestRepository;
+import com.application.entity.DatabaseTestEntity;
+import com.application.service.DatabaseTestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 /**
  * @author shenjies88
  * @since 2020/2/14-8:35 PM
  */
-@Repository
-public class DbTestRepositoryImpl implements DbTestRepository {
+@Service
+public class DatabaseTestServiceImpl implements DatabaseTestService {
 
     private JdbcTemplate jdbcTemplate;
 
     @Override
-    public void save(DbTestEntity entity) {
+    public void save(DatabaseTestEntity entity) {
         jdbcTemplate.update("INSERT INTO FOO(name) VALUES (?)", entity.getName());
     }
 
