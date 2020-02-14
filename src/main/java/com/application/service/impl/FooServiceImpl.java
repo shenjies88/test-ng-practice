@@ -1,4 +1,4 @@
-package com.application.service.imp;
+package com.application.service.impl;
 
 import com.application.service.FooService;
 import org.springframework.stereotype.Service;
