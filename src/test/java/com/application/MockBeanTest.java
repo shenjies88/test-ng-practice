@@ -1,6 +1,5 @@
 package com.application;
 
-import com.application.impl.AooImpl;
 import com.application.interfaces.Aoo;
 import com.application.interfaces.Bar;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,7 @@ import static org.mockito.Mockito.when;
  * @author shenjies88
  * @since 2020/2/14-8:12 PM
  */
-@SpringBootTest(classes = {AooImpl.class})
+@SpringBootTest(classes = TestNgPracticeApplication.class)
 @TestExecutionListeners(listeners = MockitoTestExecutionListener.class)
 public class MockBeanTest extends AbstractTestNGSpringContextTests {
 

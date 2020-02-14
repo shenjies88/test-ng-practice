@@ -1,7 +1,6 @@
 package com.application;
 
 import com.application.service.FooService;
-import com.application.service.impl.FooServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         locations = "classpath:application.yml"
 )
 @ActiveProfiles
-@SpringBootTest(classes = FooServiceImpl.class)
+@SpringBootTest(classes = TestNgPracticeApplication.class)
 public class FooServiceImplTest extends AbstractTestNGSpringContextTests implements EnvironmentAware {
 
     @Autowired

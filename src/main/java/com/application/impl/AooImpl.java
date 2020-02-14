@@ -12,15 +12,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class AooImpl implements Aoo {
 
+    @Autowired
     private Bar bar;
 
     @Override
     public boolean checkCodeDuplicate(String code) {
         return bar.getAllCodes().contains(code);
-    }
-
-    @Autowired
-    public void setBar(Bar bar) {
-        this.bar = bar;
     }
 }

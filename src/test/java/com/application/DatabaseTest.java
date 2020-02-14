@@ -4,7 +4,6 @@ import com.application.entity.DatabaseTestEntity;
 import com.application.service.DatabaseTestService;
 import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.testng.annotations.AfterTest;
@@ -16,8 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author shenjies88
  * @since 2020/2/14-8:47 PM
  */
-@SpringBootTest
-@SpringBootApplication(scanBasePackageClasses = DatabaseTestService.class)
+@SpringBootTest(classes = TestNgPracticeApplication.class)
 public class DatabaseTest extends AbstractTransactionalTestNGSpringContextTests {
 
     @Autowired
