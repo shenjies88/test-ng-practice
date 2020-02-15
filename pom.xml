@@ -179,8 +179,6 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <!-- 当skipTests的时候, 跳过 -->
-                    <skipTests>${skipTests}</skipTests>
                     <!-- 当skipITs的时候, 跳过 -->
                     <skipITs>${skipITs}</skipITs>
                     <!-- 我们被测的是一个Spring Boot项目，因此可以通过System Properties把MySQL container的相关信息传递给程序
