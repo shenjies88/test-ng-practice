@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author shenjies88
  * @since 2020/2/15-11:51 AM
  */
-@SpringBootTest(properties = "spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver", classes = TestNgPracticeApplication.class)
+@SpringBootTest(properties = "spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver")
 public class DockerIT extends AbstractTransactionalTestNGSpringContextTests implements EnvironmentAware {
 
     @Override

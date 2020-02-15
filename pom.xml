@@ -30,7 +30,7 @@
         <!-- 跳过集成测试的flag -->
         <skipITs>false</skipITs>
         <!-- 跳过单元测试的flag -->
-        <skipUTs>true</skipUTs>
+        <skipUTs>false</skipUTs>
     </properties>
 
     <dependencies>

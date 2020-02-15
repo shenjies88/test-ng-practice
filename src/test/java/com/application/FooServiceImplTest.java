@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         locations = "classpath:application.yml"
 )
 @ActiveProfiles
-@SpringBootTest(classes = TestNgPracticeApplication.class)
+@SpringBootTest
 public class FooServiceImplTest extends AbstractTestNGSpringContextTests implements EnvironmentAware {
 
     @Autowired

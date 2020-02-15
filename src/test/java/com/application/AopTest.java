@@ -23,7 +23,7 @@ import static org.testng.Assert.*;
  * @author shenjies88
  * @since 2020/2/15-5:30 PM
  */
-@SpringBootTest(classes = TestNgPracticeApplication.class)
+@SpringBootTest
 @TestExecutionListeners(listeners = MockitoTestExecutionListener.class)
 public class AopTest extends AbstractTestNGSpringContextTests {
 

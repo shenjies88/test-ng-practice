@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author shenjies88
  * @since 2020/2/14-8:47 PM
  */
-@SpringBootTest(classes = TestNgPracticeApplication.class)
+@SpringBootTest
 public class DatabaseTest extends AbstractTransactionalTestNGSpringContextTests {
 
     @Autowired

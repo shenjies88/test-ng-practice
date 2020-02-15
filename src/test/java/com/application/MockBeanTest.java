@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
  * @author shenjies88
  * @since 2020/2/14-8:12 PM
  */
-@SpringBootTest(classes = TestNgPracticeApplication.class)
+@SpringBootTest
 @TestExecutionListeners(listeners = MockitoTestExecutionListener.class)
 public class MockBeanTest extends AbstractTestNGSpringContextTests {
 
