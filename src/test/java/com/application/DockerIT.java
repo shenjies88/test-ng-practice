@@ -5,6 +5,8 @@ import com.application.service.DatabaseTestService;
 import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.EnvironmentAware;
+import org.springframework.core.env.Environment;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
@@ -12,13 +14,20 @@ import org.testng.annotations.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * 内置数据库测试
+ * Docker集成测试
  *
  * @author shenjies88
- * @since 2020/2/14-8:47 PM
+ * @since 2020/2/15-11:51 AM
  */
-@SpringBootTest(classes = TestNgPracticeApplication.class)
-public class DatabaseTest extends AbstractTransactionalTestNGSpringContextTests {
+@SpringBootTest(properties = "spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver", classes = TestNgPracticeApplication.class)
+public class DockerIT extends AbstractTransactionalTestNGSpringContextTests implements EnvironmentAware {
+
+    @Override
+    public void setEnvironment(Environment environment) {
+        System.out.println("===================================");
+        System.out.println(environment.getProperty("SPRING_DATASOURCE_URL"));
+        System.out.println("===================================");
+    }
 
     @Autowired
     private DatabaseTestService databaseTestService;

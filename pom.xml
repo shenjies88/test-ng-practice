@@ -23,6 +23,14 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.compilerVersion>${java.version}</maven.compiler.compilerVersion>
+
+        <fabric8.dmp.version>0.33.0</fabric8.dmp.version>
+        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+        <maven-failsafe-plugin.version>2.22.2</maven-failsafe-plugin.version>
+        <!-- 跳过集成测试的flag -->
+        <skipITs>false</skipITs>
+        <!-- 跳过单元测试的flag -->
+        <skipUTs>true</skipUTs>
     </properties>
 
     <dependencies>
@@ -68,6 +76,12 @@
         </dependency>
 
         <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.19</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.12</version>
@@ -82,10 +96,111 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
             <plugin>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>6.2.3</version>
+            </plugin>
+
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>${fabric8.dmp.version}</version>
+
+                <configuration>
+                    <!--  当skipITs的时候，跳过 -->
+                    <skip>${skipITs}</skip>
+                    <images>
+                        <image>
+                            <!-- 使用mysql:8 docker image -->
+                            <name>mysql:8</name>
+                            <!-- 定义docker run mysql:8 时的参数 -->
+                            <run>
+                                <ports>
+                                    <!-- host port到container port的映射
+                                    这里随机选择一个host port，并将值存到property docker-mysql.port里 -->
+                                    <port>docker-mysql.port:3306</port>
+                                </ports>
+                                <!-- 启动时给的环境变量，参阅文档：https://hub.docker.com/_/mysql -->
+                                <env>
+                                    <MYSQL_ROOT_PASSWORD>123456</MYSQL_ROOT_PASSWORD>
+                                    <MYSQL_DATABASE>test</MYSQL_DATABASE>
+                                    <MYSQL_USER>foo</MYSQL_USER>
+                                    <MYSQL_PASSWORD>bar</MYSQL_PASSWORD>
+                                </env>
+                                <!-- 设置判定container启动成功的的条件及timeout -->
+                                <wait>
+                                    <!-- 如果container打出了这行日志，则说明容器启动成功 -->
+                                    <log>MySQL init process done. Ready for start up.</log>
+                                    <time>120000</time>
+                                </wait>
+                            </run>
+                        </image>
+                    </images>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <!-- 在集成测试开始前启动容器 -->
+                        <id>start</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <!-- 在集成测试结束后停止并删除容器 -->
+                        <id>stop</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${maven-failsafe-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>integration-test</id>
+                        <goals>
+                            <goal>integration-test</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>verify</id>
+                        <goals>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- 当skipTests的时候, 跳过 -->
+                    <skipTests>${skipTests}</skipTests>
+                    <!-- 当skipITs的时候, 跳过 -->
+                    <skipITs>${skipITs}</skipITs>
+                    <!-- 我们被测的是一个Spring Boot项目，因此可以通过System Properties把MySQL container的相关信息传递给程序
+                    详见文档：https://docs.spring.io/spring-boot/docs/1.5.4.RELEASE/reference/html/boot-features-external-config.html
+                    -->
+                    <systemPropertyVariables>
+                        <spring.datasource.url>jdbc:mysql://localhost:${docker-mysql.port}/test</spring.datasource.url>
+                        <spring.datasource.username>foo</spring.datasource.username>
+                        <spring.datasource.password>bar</spring.datasource.password>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <skipTests>${skipUTs}</skipTests>
+                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -16,6 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 /**
+ * 模拟方法行为
+ *
  * @author shenjies88
  * @since 2020/2/14-8:12 PM
  */

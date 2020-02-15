@@ -18,6 +18,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 /**
+ * 配置环境属性值
+ *
  * @author shenjies88
  * @since 2020/2/14-2:03 PM
  */

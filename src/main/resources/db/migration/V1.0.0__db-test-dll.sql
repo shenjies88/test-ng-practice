@@ -1,3 +1,3 @@
 CREATE TABLE FOO (
-  name VARCHAR2(100)
+  name varchar(100)
 );

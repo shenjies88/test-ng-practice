@@ -6,6 +6,8 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 
 /**
+ * 取消自动配置
+ *
  * @author shenjies88
  * @since 2020/2/14-3:53 PM
  */
